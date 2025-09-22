@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: #f0f4f8;
+        }
+
+        h1 {
+            color: #0077cc;
+        }
+
+        .weather-box {
+            margin-top: 20px;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background: #0077cc;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background: #005fa3;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <input type="text" id="cityInput" placeholder="Enter city name" />
+    <button id="getWeatherBtn">Get Weather</button>
+
+    <div id="weatherResult" class="weather-box"></div>
+
+    <script type="module">
+        import { fetchWeather } from './weather.js';
+
+        const cityInput = document.getElementById("cityInput");
+        const getWeatherBtn = document.getElementById("getWeatherBtn");
+
+        // Button click
+        getWeatherBtn.addEventListener("click", () => {
+            const city = cityInput.value.trim();
+            fetchWeather(city);
+        });
+
+        // Load last city on page load
+        window.onload = () => {
+            const lastCity = localStorage.getItem("lastCity");
+            if (lastCity) fetchWeather(lastCity);
+        };
+    </script>
+</body>
+</html>
